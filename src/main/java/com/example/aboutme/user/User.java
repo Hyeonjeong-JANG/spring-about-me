@@ -50,39 +50,42 @@ public class User {
 
     // 아래부터는 필수가 아님
     @Column(nullable = true)
-    private String profileImage;
+    private String profileImage; // 사진
 
-    private String birth;
+    private String birth; // 생년월일
 
     @Enumerated(EnumType.STRING)
-    private Gender gender;
+    private Gender gender; // MAN, WOMAN, OTHER
 
     @OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private PR pr;
+    private PR pr; // 소개, 상담의 효과, 해결 방식
+
+    @Enumerated(EnumType.STRING)
+    private ExpertLevel level; // LEVEL1: 1급, LEVEL2: 2급
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Spec> specs;
+    private List<Spec> specs; // 스펙 목록
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Payment> payments;
+    private List<Payment> payments; // 결제
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Refund> refunds;
+    private List<Refund> refunds; // 환불
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Alarm> alarms;
+    private List<Alarm> alarms; // 알림
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Comm> comms;
+    private List<Comm> comms; // 커뮤니티
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Reply> replies;
+    private List<Reply> replies; // 커뮤니티 댓글
 
     @OneToMany(mappedBy = "issuedBy", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Voucher> issuedVouchers;
+    private List<Voucher> issuedVouchers; // 바우처
 
     @OneToMany(mappedBy = "ownedBy", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Voucher> ownedVouchers;
+    private List<Voucher> ownedVouchers; // 바우처
 
     @CreationTimestamp
     private Timestamp createdAt;
@@ -102,6 +105,7 @@ public class User {
         this.birth = birth;
         this.gender = gender;
         this.pr = pr;
+        this.level = level;
         this.specs = specs;
         this.payments = payments;
         this.refunds = refunds;

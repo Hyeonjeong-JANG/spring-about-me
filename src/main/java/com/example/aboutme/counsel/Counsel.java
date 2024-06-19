@@ -4,11 +4,7 @@ import com.example.aboutme.review.Review;
 import com.example.aboutme.user.User;
 import com.example.aboutme.voucher.Voucher;
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -24,29 +20,29 @@ import java.time.LocalDateTime;
 public class Counsel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer id; // 상담 아이디
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id", nullable = false)
-    private User client;
+    private User client; // 상담 받는 사람
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "expert_id", nullable = false)
-    private User expert;
+    private User expert; // 상담 해주는 사람
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "voucher_id", nullable = false)
-    private Voucher voucher;
+    private Voucher voucher; // 사용된 바우처
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "review_id", nullable = true)
-    private Review review;
+    private Review review; // 상담 리뷰
 
     @Column(nullable = false)
-    private LocalDateTime counselDate;
+    private LocalDateTime counselDate; // 상담 날짜
 
     @Column(nullable = false)
-    private String result;
+    private String result; // 상담 결과
 
     @CreationTimestamp
     private Timestamp createdAt;
