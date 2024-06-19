@@ -62,4 +62,9 @@ public class UserService {
         return result;
     }
 
+//    // 유저 메인 랜더링
+//    public List<UserResponse.ClientMainCommListDTO> getMainComms() {
+//
+//        return userRepository.findCommsWithReply();
+//    }
 }

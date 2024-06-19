@@ -1,9 +1,8 @@
 package com.example.aboutme.user;
 
-import com.example.aboutme.comm.CommResponse;
 import com.example.aboutme.comm.CommService;
-import jakarta.servlet.http.HttpServletRequest;
 import com.example.aboutme.user.enums.UserRole;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
@@ -74,9 +73,9 @@ public class UserController {
     // 메인페이지
     @GetMapping("/")
     public String index(HttpServletRequest request) {
-        List<CommResponse.ClientMainCommListDTO> mainCommListDTOS = commService.getMainComms();
-        request.setAttribute("mainCommList", mainCommListDTOS);
-        System.out.println(mainCommListDTOS);
+//        List<UserResponse.ClientMainCommListDTO> mainCommListDTOS = userService.getMainComms();
+//        request.setAttribute("mainCommList", mainCommListDTOS);
+//        System.out.println(mainCommListDTOS);
         return "client/main";
     }
 
@@ -98,7 +97,7 @@ public class UserController {
     @GetMapping("/client/findExpert")
     public String findExpert() {
 
-        List<UserResponse.ExpertUserDTO> expertUserList =  userService.getAllExpertUsers();
+        List<UserResponse.ExpertUserDTO> expertUserList = userService.getAllExpertUsers();
         session.setAttribute("expertUserList", expertUserList);
 
         return "client/findExpert/main";

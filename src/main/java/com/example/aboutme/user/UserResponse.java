@@ -1,8 +1,5 @@
 package com.example.aboutme.user;
 
-import com.example.aboutme.counsel.Counsel;
-import com.example.aboutme.user.pr.PR;
-import com.example.aboutme.voucher.Voucher;
 import lombok.Data;
 
 import java.util.List;
@@ -28,7 +25,7 @@ public class UserResponse {
         }
 
         @Data
-        public static class VoucherImageDTO{
+        public static class VoucherImageDTO {
             public String url;
 
             public VoucherImageDTO(String url) {
@@ -36,4 +33,28 @@ public class UserResponse {
             }
         }
     }
+
+//    @Data
+//    public static class ClientMainCommListDTO {
+//        private Integer communityId;
+//        private String title;
+//        private String content;
+//        private String category;
+//        private String writerImage;
+//        private String writerName;
+//        private String expertImage;
+//        private String expertName;
+//
+//        public ClientMainCommListDTO(Integer communityId, String title, String content, CommCategory category,
+//                                     String writerImage, String writerName, String expertImage, String expertName) {
+//            this.communityId = communityId;
+//            this.title = title;
+//            this.content = content;
+//            this.category = category.getKorean();
+//            this.writerImage = writerImage;
+//            this.writerName = writerName;
+//            this.expertImage = expertImage;
+//            this.expertName = expertName;
+//        }
+//    }
 }
