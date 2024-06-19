@@ -8,7 +8,26 @@
 .navbar{
     padding: 0;
 }
-.container-fluid{
+    /*
+
+
+     ================페이지 스크롤인데 페이지네이션? 그거 하면 없앨듯=================
+
+
+
+     */
+    .page-wrapper {
+        flex: 1; /* 페이지 내용이 전체 높이를 채우도록 설정 */
+        overflow-y: auto; /* 내용이 넘칠 경우 수직 스크롤이 생성되도록 설정 */
+    }
+
+
+
+
+
+
+
+    .container-fluid{
     background: #fff;
     padding: 10px;
     border-radius: 5px;
@@ -33,7 +52,7 @@
 .c-card{
     border: none;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     flex-wrap: wrap;
     max-height: 1000px;
     align-content: flex-start;
@@ -43,7 +62,6 @@
     margin-right: 20px;
     border: 1px solid #ddd;
     border-radius: 5px;
-    height: -webkit-fill-available;
     margin-bottom: 20px;
     height: fit-content;
     padding: 20px;
@@ -53,9 +71,9 @@
     width: 100%;
     border: none;
 }
-.c-card .c-card-body:nth-child(3n){
-    margin-right: 0;
-}
+    .c-card-body:nth-child(3n) {
+        margin-right: 0;
+    }
 .c-card .c-card-body .card-title{
     font-weight: 700;
     font-size: 18px;

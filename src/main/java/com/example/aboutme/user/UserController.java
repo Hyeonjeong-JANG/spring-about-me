@@ -1,5 +1,6 @@
 package com.example.aboutme.user;
 
+import com.example.aboutme.comm.CommResponse;
 import com.example.aboutme.comm.CommService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -7,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Controller
@@ -66,7 +69,10 @@ public class UserController {
     //TODO: 커뮤니티 페이지
     //커뮤니티 - 메인
     @GetMapping("/comm")
-    public String community() {
+    public String community(HttpServletRequest req) {
+        List<CommResponse.CommDTO> comms = commService.printAllComm();
+        req.setAttribute("model",comms);
+
         return "comm/comm-main";
     }
 
