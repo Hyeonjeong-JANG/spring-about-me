@@ -41,17 +41,4 @@ public class CommResponse {
         private String writerName;
         private String expertImage;
         private String expertName;
-
-        @Builder
-        public ClientMainCommListDTO(Comm comm, User client, Reply expert) {
-            this.communityId = comm.getId();
-            this.title = comm.getTitle();
-            this.content = comm.getContent();
-            this.category = comm.getCategory().getKorean();
-            this.writerImage = client.getProfileImage();
-            this.writerName = client.getName();
-            this.expertImage = expert.getUser().getProfileImage();
-            this.expertName = expert.getUser().getName();
-        }
-    }
 }

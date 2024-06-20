@@ -15,7 +15,7 @@ public class CommController {
     private final CommService commService;
 
     @GetMapping("/comm/write")
-    public String community() {
+    public String communityWrite() {
         return "comm/comm-write";
     }
 
