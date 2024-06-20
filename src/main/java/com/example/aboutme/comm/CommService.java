@@ -17,8 +17,9 @@ public class CommService {
     }
 
     //상품 상세보기
-    public CommResponse.CommDetailDTO getCommDetail(int commId) {
-        Comm comm = commNativeRepository.findById(commId);
+    public CommResponse.CommDetailDTO getCommDetail(int id) {
+        Comm comm = commNativeRepository.findById(id);
+        System.out.println("comm = " + comm);
         return new CommResponse.CommDetailDTO(comm);
     }
 }

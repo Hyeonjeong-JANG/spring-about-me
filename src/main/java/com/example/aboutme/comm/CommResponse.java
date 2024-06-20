@@ -1,10 +1,12 @@
 package com.example.aboutme.comm;
 
 import com.example.aboutme.comm.enums.CommCategory;
+import com.example.aboutme.reply.Reply;
 import com.example.aboutme.user.User;
 import lombok.Data;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 public class CommResponse {
 
@@ -34,15 +36,25 @@ public class CommResponse {
 
     @Data
     public static class CommDetailDTO {
-        private Integer commId;
+        private Integer id;
+        private List<Reply> replies;
+        private Integer userId;
         private User user; // 조인해야 할 듯.
         private String content;
         private String title;
         private CommCategory category;
         private Timestamp createdAt;
+        private String summary;
+        private String causeAnalysis;
+        private String solution;
+
+        private
+
 
         public CommDetailDTO(Comm comm) {
-            this.commId = comm.getId();
+            this.id = comm.getId();
+            this.replies = comm.getReplies();
+            this.userId = comm.getUser().getId();
             this.user = comm.getUser();
             this.content = comm.getContent();
             this.title = comm.getTitle();

@@ -30,7 +30,7 @@ public class User {
     private UserRole userRole; // CLIENT, EXPERT
 
     @Column(nullable = false, unique = true)
-    private String email; // 이메일을 아이디로 씀
+    private String email; // 이메일로 로그인함.
 
     @Column(nullable = false)
     private String password; // 비밀번호

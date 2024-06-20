@@ -16,15 +16,14 @@ public class CommController {
         return "comm/comm-write";
     }
 
-    @GetMapping("/comm-detail/{commId}")
-//    @GetMapping("/comm-detail")
-    public String detail(@PathVariable Integer commId, HttpServletRequest request) {
-        CommResponse.CommDetailDTO comm = commService.getCommDetail(commId);
+    //게시판 상세보기
+    @GetMapping("/comm-detail/{id}")
+    public String detail(@PathVariable Integer id, HttpServletRequest request) {
+        CommResponse.CommDetailDTO comm = commService.getCommDetail(id);
         request.setAttribute("comm", comm);
+//        System.out.println("comm = " + comm);
         return "comm/comm-detail";
     }
-
-    //게시판 상세보기
 
 
 }

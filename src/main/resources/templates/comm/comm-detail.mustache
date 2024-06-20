@@ -13,17 +13,17 @@
                 <div class="comm-detail">
                     <!--상세보기 info 시작-->
                     <div class="c-card">
-                        <div class="c-card-body comdetail">
+                        <div class="c-card-body comm-detail">
                             <!-- <h4 class="card-title">1</h4> -->
                             <div class="breadcrumb mb-20">
                                 <a href="#">홈화면</a> > <a href="#">커뮤니티</a> > <a href="#"
-                                                                                class="active main-color">자유</a>
+                                                                                class="active main-color">{{comm.category}}</a>
                             </div>
-                            <h4 class="card-title">comm.title}}</h4>
+                            <h4 class="card-title">{{comm.title}}</h4>
                             <div class="community-cartegory detail">
                                 <div class="user-info">
                                     <figure><img src="images/level1.png" alt="회원이미지"></figure>
-                                    <span>handon7018</span><span class="time">10시간 전</span></div>
+                                    <span>{{comm.Id}}</span><span class="time">{{comm.createdAt}}</span></div>
                                 <div class="actions">
                                     <div class="right-actions">
                                         <button class=" defalut-btn" onclick="clip()"><i
@@ -42,7 +42,7 @@
                             <!--dropdown 시작..-->
 
                             <!--dropdown 끝-->
-                            <p class="card-text">내용입니다.</p>
+                            <p class="card-text">{{comm.content}}</p>
                             <br>
                             <br>
                             <br>

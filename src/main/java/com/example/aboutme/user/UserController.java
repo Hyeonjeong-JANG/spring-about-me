@@ -79,23 +79,23 @@ public class UserController {
     //커뮤니티 - 메인
     @GetMapping("/comm")
     public String community() {
-        
+
         return "comm/comm-main";
     }
 
-    @GetMapping("comm/detail")
-    public String communityDetail() {
-        return "comm/comm-detail";
-    }
+//    @GetMapping("comm/detail")
+//    public String communityDetail() {
+//        return "comm/comm-detail";
+//    }
 
 
     // 🐯🐯🐯Client🐯🐯🐯
     //전문가 찾기 - 메인
     @GetMapping("/client/findExpert")
     public String findExpert(Model model) {
-          FindWrapperRecord findWrapperRecord = userService.getExpertFind();
-          model.addAttribute("expertList", findWrapperRecord);
-          System.out.println(findWrapperRecord);
+        FindWrapperRecord findWrapperRecord = userService.getExpertFind();
+        model.addAttribute("expertList", findWrapperRecord);
+        System.out.println(findWrapperRecord);
 //        List<UserResponse.ExpertUserDTO> expertUserList = userService.getAllExpertUsers();
 //        session.setAttribute("expertUserList", expertUserList);
 
