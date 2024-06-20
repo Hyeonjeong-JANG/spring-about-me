@@ -5,4 +5,5 @@ public record PRRecord(
         String intro,
         String effects,
         String methods
-) {}
+) {
+}
