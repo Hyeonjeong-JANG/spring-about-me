@@ -1,6 +1,7 @@
 package com.example.aboutme.comm;
 
 import com.example.aboutme.user.UserResponse;
+import com.example.aboutme.user.UserResponseDTO.ExpertMainDTO.CounselRecord;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -25,4 +26,6 @@ public interface CommRepository extends JpaRepository<Comm, Integer> {
             WHERE r.user.userRole = com.example.aboutme.user.enums.UserRole.EXPERT
                     """)
     List<UserResponse.ClientMainDTO.CommDTO> findCommsWithReply();
+    
+    List<CounselRecord> findByExpertId(Integer expertId);
 }

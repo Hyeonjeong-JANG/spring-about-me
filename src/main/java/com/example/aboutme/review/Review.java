@@ -31,6 +31,9 @@ public class Review {
     @Column(nullable = false)
     private String content;
 
+    @Column(nullable = false)
+    private Double score;
+
     @CreationTimestamp
     private Timestamp createdAt;
 

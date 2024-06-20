@@ -2,8 +2,8 @@ package com.example.aboutme.user.UserResponseDTO.ExpertMainDTO;
 
 import java.util.List;
 
-public record MainDTORecord(
+public record ExpertMainDTORecord(
         List<ReviewRecord> reviews,
-        List<CouncelRecord> counsels
+        List<CounselRecord> counsels
 ) {
 }
