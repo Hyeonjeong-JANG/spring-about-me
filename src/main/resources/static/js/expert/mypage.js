@@ -18,7 +18,7 @@ $(document).ready(function () {
 
         // 보기 모드에 값 반영
         $('#title').text(title);
-        $('#profileImageView').attr('src',profileImageSrc);
+        $('#profileImageView').attr('src', profileImageSrc);
 
         // 폼 전환
         $('#profile-edit-card').addClass('d-none');
@@ -26,7 +26,7 @@ $(document).ready(function () {
 
         // 서버로 데이터 전송
         $.ajax({
-            url: '/submit',
+            url: '/submit', // 실제 엔드포인트로 변경
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify({
@@ -43,10 +43,10 @@ $(document).ready(function () {
     });
 
     // 경력 항목 추가 버튼 클릭 시
-    $('#addCareer').on('click', function () {
+    $('#addCareer').off('click').on('click', function () {
         const yearOptions = generateYearOptions();
         $('#career-form').append(`
-            <div class="input-group">
+            <div class="input-group career-entry">
                 <select class="form-control" name="year">${yearOptions}</select>
                 <input type="text" class="form-control" name="detail" placeholder="직무, 자격증 등을 입력하세요">
                 <div class="input-group-append">
@@ -58,10 +58,10 @@ $(document).ready(function () {
     });
 
     // 학력 항목 추가 버튼 클릭 시
-    $('#addEducation').on('click', function () {
+    $('#addEducation').off('click').on('click', function () {
         const yearOptions = generateYearOptions();
         $('#education-form').append(`
-            <div class="input-group">
+            <div class="input-group education-entry">
                 <select class="form-control" name="year">${yearOptions}</select>
                 <input type="text" class="form-control" name="school" placeholder="학교를 입력하세요">
                 <input type="text" class="form-control" name="degree" placeholder="학위, 전공 등을 입력하세요">
@@ -74,7 +74,7 @@ $(document).ready(function () {
     });
 
     // 동적 폼 항목 삭제 기능
-    $(document).on('click', '.remove', function () {
+    $(document).off('click', '.remove').on('click', '.remove', function () {
         $(this).closest('.input-group').next('hr').remove();
         $(this).closest('.input-group').remove();
     });
@@ -92,4 +92,4 @@ $(document).ready(function () {
     // 출생 연도 셀렉트 박스에 옵션 추가
     const yearOptions = generateYearOptions();
     $('#edit-birth-year').append(yearOptions);
-})
+});
