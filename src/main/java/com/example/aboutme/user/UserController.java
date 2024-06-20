@@ -1,5 +1,6 @@
 package com.example.aboutme.user;
 
+import com.example.aboutme.comm.CommResponse;
 import com.example.aboutme.comm.CommService;
 import com.example.aboutme.user.UserResponseDTO.ExpertFindDetailDTO.DetailDTORecord;
 import com.example.aboutme.user.enums.UserRole;
@@ -67,6 +68,15 @@ public class UserController {
         return "client/main";
     }
 
+    //TODO: 커뮤니티 페이지
+    //커뮤니티 - 메인
+    @GetMapping("/comm")
+    public String community(HttpServletRequest req) {
+        List<CommResponse.CommDTO> comms = commService.printAllComm();
+        req.setAttribute("model",comms);
+
+        return "comm/comm-main";
+      
     // 익스퍼트 메인페이지
     @GetMapping("/expert/main")
     public String expertMain(HttpServletRequest request) {
@@ -75,7 +85,6 @@ public class UserController {
         System.out.println(clientMain);
         return "expert/main";
     }
-
 
 
     // 🐯🐯🐯Client🐯🐯🐯

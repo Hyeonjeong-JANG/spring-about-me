@@ -11,5 +11,13 @@ import java.util.List;
 public class CommService {
     private final CommRepository commRepository;
 
+        public List<CommResponse.CommDTO> printAllComm(){
+            List<CommResponse.CommDTO> comms = commRepository.findAllCommDTOs();
+            return comms;
+        }
 
+//    public List<CommResponse.ClientMainCommListDTO> getMainComms() {
+//
+//        return commRepository.findCommsWithReply();
+//    }
 }
