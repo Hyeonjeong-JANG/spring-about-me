@@ -24,8 +24,8 @@ public class Spec {
     private String details; // 상세 내용
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @JoinColumn(name = "expert_id", nullable = false)
+    private User user; // 전문가 유저
 
     @Builder
     public Spec(Integer id, SpecType specType, String details, User user) {

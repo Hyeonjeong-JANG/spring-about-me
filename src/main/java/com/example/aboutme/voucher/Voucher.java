@@ -19,35 +19,35 @@ import java.time.LocalDateTime;
 public class Voucher {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer id; // 바우처 ID
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private VoucherType voucherType;
+    private VoucherType voucherType; // 바우처 유형
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "expert_id", nullable = false)
-    private User expert;
+    private User expert; // 바우처 제공 전문가
 
     @Column(nullable = false)
-    private Integer price;
+    private Integer price; // 가격
 
     @Column(nullable = false)
-    private Integer count;
+    private Integer count; // 사용 가능 횟수
 
     @Column(nullable = false)
-    private Integer duration;
+    private Integer duration; // 바우처 유효 기간
 
-    private String imagePath;
+    private String imagePath; // 이미지 경로
 
     @Column(nullable = false)
-    private LocalDateTime startDate;
+    private LocalDateTime startDate; // 시작 날짜
 
     @CreationTimestamp
-    private Timestamp createdAt;
+    private Timestamp createdAt; // 생성 시간
 
     @UpdateTimestamp
-    private Timestamp updatedAt;
+    private Timestamp updatedAt; // 수정 시간
 
     @Builder
     public Voucher(Integer id, VoucherType voucherType, User expert, Integer price, Integer count, Integer duration, String imagePath, LocalDateTime startDate, Timestamp createdAt, Timestamp updatedAt) {

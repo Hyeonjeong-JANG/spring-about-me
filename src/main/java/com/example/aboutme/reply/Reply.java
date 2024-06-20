@@ -17,27 +17,27 @@ import java.sql.Timestamp;
 public class Reply {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer id; // 댓글 ID
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    private User user; // 댓글 단 사람
+    private User user; // 댓글 작성 유저
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "comm_id", nullable = false)
-    private Comm comm;
+    private Comm comm; // 관련 커뮤니티 글
 
     @Column(nullable = false)
-    private String summary;
+    private String summary; // 요약
 
     @Column(nullable = false)
-    private String causeAnalysis;
+    private String causeAnalysis; // 원인 분석
 
     @Column(nullable = false)
-    private String solution;
+    private String solution; // 해결책
 
     @CreationTimestamp
-    private Timestamp createdAt;
+    private Timestamp createdAt; // 작성 시간
 
     @Builder
     public Reply(Integer id, User user, Comm comm, String summary, String causeAnalysis, String solution, Timestamp createdAt) {

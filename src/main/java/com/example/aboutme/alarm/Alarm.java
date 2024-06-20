@@ -2,11 +2,7 @@ package com.example.aboutme.alarm;
 
 import com.example.aboutme.user.User;
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
@@ -20,17 +16,17 @@ import java.sql.Timestamp;
 public class Alarm {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer id; // 알림 ID
 
     @Column(nullable = false)
-    private String message;
+    private String message; // 알림 메시지
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    private User user; // 알림을 받은 유저
 
     @CreationTimestamp
-    private Timestamp createdAt;
+    private Timestamp createdAt; // 알림 생성 시간
 
     @Builder
     public Alarm(Integer id, String message, User user, Timestamp createdAt) {

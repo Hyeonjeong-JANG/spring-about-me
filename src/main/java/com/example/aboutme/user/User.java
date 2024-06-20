@@ -20,7 +20,6 @@ import java.util.List;
 @ToString(exclude = {"pr", "specs", "payments", "refunds", "alarms", "comms", "replies", "vouchers"})
 public class User {
 
-    // 필수 입력
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id; // 유저 아이디
@@ -30,40 +29,38 @@ public class User {
     private UserRole userRole; // CLIENT, EXPERT
 
     @Column(nullable = false, unique = true)
-    private String email; // 이메일을 아이디로 씀
+    private String email; // 이메일 (아이디로 사용됨)
 
     @Column(nullable = false)
     private String password; // 비밀번호
 
     @Column(nullable = false)
-    private String name; // client는 닉네임, expert는 이름으로 씀
+    private String name; // 이름 (클라이언트는 닉네임, 전문가는 이름)
 
     @Column(nullable = false)
     private String phone; // 전화번호
 
-    // 아래부터는 필수가 아님
-
-    private String expertTitle; // 상담사 타이틀
+    private String expertTitle; // 상담사 타이틀 (전문가에게만 해당)
 
     @Column(nullable = true)
-    private String profileImage;
+    private String profileImage; // 프로필 이미지 경로
 
-    private String birth;
+    private String birth; // 생년월일
 
     @Enumerated(EnumType.STRING)
-    private Gender gender;
+    private Gender gender; // 성별
 
     @OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private PR pr;
+    private PR pr; // 전문가 PR 정보
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Spec> specs;
+    private List<Spec> specs; // 전문가 스펙 리스트
 
     @CreationTimestamp
-    private Timestamp createdAt;
+    private Timestamp createdAt; // 생성 시간
 
     @UpdateTimestamp
-    private Timestamp updatedAt;
+    private Timestamp updatedAt; // 수정 시간
 
     @Builder
     public User(Integer id, UserRole userRole, String email, String password, String name, String phone, String profileImage, String birth, Gender gender, PR pr, List<Spec> specs, Timestamp createdAt, Timestamp updatedAt, String expertTitle) {

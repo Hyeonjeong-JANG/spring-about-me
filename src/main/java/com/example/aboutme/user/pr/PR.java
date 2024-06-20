@@ -15,7 +15,6 @@ public class PR {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id; // pr 아이디
 
-
     @Column(nullable = false)
     private String intro; // 소개
 
@@ -27,7 +26,7 @@ public class PR {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "expert_id")
-    private User user;
+    private User user; // 전문가 유저
 
     @Builder
     public PR(Integer id, String intro, String effects, String methods, User user) {
