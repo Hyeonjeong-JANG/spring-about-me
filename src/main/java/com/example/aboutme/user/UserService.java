@@ -1,6 +1,5 @@
 package com.example.aboutme.user;
 
-import com.example.aboutme._core.error.exception.Exception401;
 import com.example.aboutme._core.error.exception.Exception403;
 import com.example.aboutme._core.utils.Formatter;
 import com.example.aboutme.comm.CommRepository;
@@ -52,7 +51,14 @@ public class UserService {
     @Transactional
     public User loginByName(UserRequest.LoginDTO reqDTO) {
         User user = userNativeRepository.login(reqDTO);
-        user.getSpecs().size();
+
+        if ("personal".equalsIgnoreCase(reqDTO.getUserRole().toString()) && !user.getUserRole().equals(UserRole.CLIENT)) {
+            throw new RuntimeException("개인 회원만 접근 가능합니다.");
+        }
+
+        if ("advisor".equalsIgnoreCase(reqDTO.getUserRole().toString()) && !user.getUserRole().equals(UserRole.EXPERT)) {
+            throw new RuntimeException("상담사만 접근 가능합니다.");
+        }
         return user;
     }
 

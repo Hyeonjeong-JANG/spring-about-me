@@ -41,4 +41,6 @@ public class CommResponse {
         private String writerName;
         private String expertImage;
         private String expertName;
+
+    }
 }

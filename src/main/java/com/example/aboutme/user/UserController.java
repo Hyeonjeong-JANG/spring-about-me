@@ -73,10 +73,11 @@ public class UserController {
     @GetMapping("/comm")
     public String community(HttpServletRequest req) {
         List<CommResponse.CommDTO> comms = commService.printAllComm();
-        req.setAttribute("model",comms);
+        req.setAttribute("model", comms);
 
         return "comm/comm-main";
-      
+    }
+
     // 익스퍼트 메인페이지
     @GetMapping("/expert/main")
     public String expertMain(HttpServletRequest request) {
@@ -91,9 +92,9 @@ public class UserController {
     //전문가 찾기 - 메인
     @GetMapping("/client/findExpert")
     public String findExpert(Model model) {
-          FindWrapperRecord findWrapperRecord = userService.getExpertFind();
-          model.addAttribute("expertList", findWrapperRecord);
-          System.out.println(findWrapperRecord);
+        FindWrapperRecord findWrapperRecord = userService.getExpertFind();
+        model.addAttribute("expertList", findWrapperRecord);
+        System.out.println(findWrapperRecord);
 //        List<UserResponse.ExpertUserDTO> expertUserList = userService.getAllExpertUsers();
 //        session.setAttribute("expertUserList", expertUserList);
 
@@ -127,3 +128,4 @@ public class UserController {
     }
     // 🩺🩺🩺expert🩺🩺🩺
 }
+
