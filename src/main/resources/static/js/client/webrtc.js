@@ -13,6 +13,7 @@ startButton.onclick = async () => {
     localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
     localVideo.srcObject = localStream;
     callButton.disabled = false;
+    startButton.disabled = true;
 };
 
 // WebRTC 연결 설정
@@ -37,6 +38,7 @@ callButton.onclick = () => {
     });
 
     hangupButton.disabled = false;
+    callButton.disabled = true;
 };
 
 // 시그널링 서버 메시지 처리
@@ -55,10 +57,25 @@ signalingServer.onmessage = async message => {
     }
 };
 
-// 연결 종료
+// 상담 종료 버튼 클릭 이벤트 핸들러
 hangupButton.onclick = () => {
-    pc.close();
-    pc = null;
-    hangupButton.disabled = true;
-    callButton.disabled = false;
+    const confirmation = confirm("종료하시겠습니까?");
+    if (confirmation) {
+        if (pc) {
+            pc.close();
+            pc = null;
+        }
+
+        if (localStream) {
+            localStream.getTracks().forEach(track => track.stop());
+            localStream = null;
+        }
+
+        localVideo.srcObject = null;
+        remoteVideo.srcObject = null;
+
+        hangupButton.disabled = true;
+        callButton.disabled = false;
+        startButton.disabled = false;
+    }
 };
