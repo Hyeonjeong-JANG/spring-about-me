@@ -17,5 +17,4 @@ public class AboutMeApplication {
 
         SpringApplication.run(AboutMeApplication.class, args);
     }
-
 }

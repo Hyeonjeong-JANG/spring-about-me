@@ -6,7 +6,15 @@ const hangupButton = document.getElementById('hangupButton');
 
 let localStream;
 let pc;
-const signalingServer = new WebSocket('ws://192.168.112.187:8080/signal'); // 서버의 IP나 도메인 사용
+const signalingServer = new WebSocket('ws://192.168.112.187:8080/signal'); // 시그널링 서버의 로컬 IP 주소
+
+const pcConfig = {
+    iceServers: [
+        {
+            urls: 'stun:stun.l.google.com:19302' // Google의 공개 STUN 서버 사용
+        }
+    ]
+};
 
 // 미디어 스트림 가져오기
 startButton.onclick = async () => {
@@ -18,7 +26,7 @@ startButton.onclick = async () => {
 
 // WebRTC 연결 설정
 callButton.onclick = () => {
-    pc = new RTCPeerConnection();
+    pc = new RTCPeerConnection(pcConfig);
 
     localStream.getTracks().forEach(track => pc.addTrack(track, localStream));
 
@@ -46,14 +54,14 @@ signalingServer.onmessage = async message => {
     const data = JSON.parse(message.data);
 
     if (data.offer) {
-        pc.setRemoteDescription(new RTCSessionDescription(data.offer));
+        await pc.setRemoteDescription(new RTCSessionDescription(data.offer));
         const answer = await pc.createAnswer();
-        pc.setLocalDescription(answer);
+        await pc.setLocalDescription(answer);
         signalingServer.send(JSON.stringify({ answer: answer }));
     } else if (data.answer) {
-        pc.setRemoteDescription(new RTCSessionDescription(data.answer));
+        await pc.setRemoteDescription(new RTCSessionDescription(data.answer));
     } else if (data.candidate) {
-        pc.addIceCandidate(new RTCIceCandidate(data.candidate));
+        await pc.addIceCandidate(new RTCIceCandidate(data.candidate));
     }
 };
 
