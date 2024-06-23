@@ -13,6 +13,7 @@ import com.example.aboutme.user.enums.UserRole;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
@@ -30,8 +31,15 @@ public class UserController {
 //    private final KakaoOAuthService kakaoOAuthService;
 //    private final NaverOAuthService naverOAuthService;
 
+    @Value("${KAKAO_CLIENT_ID}")
+    private String kakaoClientId;
+
+    @Value("${NAVER_CLIENT_ID}")
+    private String naverClientId;
+
     @PostMapping("/login")
     public String login(UserRequest.LoginDTO reqDTO) {
+
         SessionUser sessionUser = userService.loginByName(reqDTO);
         if (sessionUser == null) {
             throw new RuntimeException("아이디 혹은 패스워드가 틀렸습니다.");
@@ -44,6 +52,7 @@ public class UserController {
         } else if (sessionUser.getUserRole() == UserRole.EXPERT) {
             return "redirect:/experts/" + sessionUser.getId();
         } else {
+
             return "oauth/login";
         }
     }
@@ -88,7 +97,9 @@ public class UserController {
 
 
     @GetMapping("/login")
-    public String loginForm() {
+    public String loginForm(Model model) {
+        model.addAttribute("kakaoClientId", kakaoClientId);
+        model.addAttribute("naverClientId", naverClientId);
         return "oauth/login";
     }
 
@@ -151,8 +162,6 @@ public class UserController {
 //        session.setAttribute("sessionUser", sessionUser);
 //        return "redirect:/";
 //    }
-
-
 
 
     @GetMapping("/logout")

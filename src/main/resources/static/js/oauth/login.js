@@ -15,6 +15,8 @@ $(document).ready(function () {
         // 세션에 userRole을 저장하기 위해 서버로 AJAX 요청
         $.post('/setUserRole', {userRole: userRole}, function () {
             var kakaoAuthUrl = "https://kauth.kakao.com/oauth/authorize?redirect_uri=http://localhost:8080/oauth/callback/kakao&response_type=code&client_id=f07259c71010e17f9a081c435bc8328b";
+            // TODO: 내 정보를 지키고 싶다.
+            // var kakaoAuthUrl = "https://kauth.kakao.com/oauth/authorize?redirect_uri=http://localhost:8080/oauth/callback/kakao&response_type=code&client_id=" + kakaoClientId;
             window.location.href = kakaoAuthUrl;
         });
     });
@@ -28,6 +30,8 @@ $(document).ready(function () {
         // 세션에 userRole을 저장하기 위해 서버로 AJAX 요청
         $.post('/setUserRole', {userRole: userRole}, function () {
             var NaverAuthUrl = "https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=elWt0DvVScIBARwZfyU7&redirect_uri=http://localhost:8080/oauth/callback/naver&state=" + state;
+            // TODO: 내 정보를 지키고 싶다.
+            // var NaverAuthUrl = "https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=" + naverClientId + "&redirect_uri=http://localhost:8080/oauth/callback/naver&state=" + state;
             window.location.href = NaverAuthUrl;
         });
     });

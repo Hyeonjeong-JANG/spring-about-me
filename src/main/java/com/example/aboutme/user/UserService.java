@@ -30,6 +30,7 @@ import com.example.aboutme.voucher.enums.VoucherType;
 import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
@@ -56,7 +57,12 @@ public class UserService {
     private final CounselRepository counselRepository;
     private final Formatter formatter;
 
-
+    @Value("${KAKAO_CLIENT_ID}")
+    private String kakaoClientId;
+    @Value("${NAVER_CLIENT_ID}")
+    private String naverClientId;
+    @Value("${NAVER_CLIENT_SECRET}")
+    private String naverClientSecret;
 //    @Transactional
 //    public User loginByName(UserRequest.LoginDTO reqDTO) {
 //        User user = userNativeRepository.login(reqDTO);
@@ -184,7 +190,7 @@ public class UserService {
         // 1.3 http body 설정
         MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
         body.add("grant_type", "authorization_code");
-        body.add("client_id", "f07259c71010e17f9a081c435bc8328b");
+        body.add("client_id", kakaoClientId);
         body.add("redirect_uri", "http://localhost:8080/oauth/callback/kakao");
         body.add("code", code);
 
@@ -252,8 +258,8 @@ public class UserService {
 
         MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
         body.add("grant_type", "authorization_code");
-        body.add("client_id", "elWt0DvVScIBARwZfyU7");
-        body.add("client_secret", "iQ7E21zhDQ");
+        body.add("client_id", naverClientId);
+        body.add("client_secret", naverClientSecret);
         body.add("code", code);
         body.add("state", state);
 
@@ -340,7 +346,7 @@ public class UserService {
 
         try {
             ResponseEntity<String> response = restTemplate.exchange(
-                    "https://nid.naver.com/oauth2.0/token?grant_type=delete&client_id=elWt0DvVScIBARwZfyU7&client_secret=iQ7E21zhDQ&access_token=" + accessToken + "&service_provider=NAVER",
+                    "https://nid.naver.com/oauth2.0/token?grant_type=delete&client_id="+naverClientId+"&client_secret="+naverClientSecret+"&access_token=" + accessToken + "&service_provider=NAVER",
                     HttpMethod.GET,
                     request,
                     String.class
