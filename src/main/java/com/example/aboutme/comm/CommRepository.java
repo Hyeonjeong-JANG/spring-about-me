@@ -4,12 +4,17 @@ import com.example.aboutme.comm.enums.CommCategory;
 import com.example.aboutme.user.UserResponse;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
 public interface CommRepository extends JpaRepository<Comm, Integer> {
 
     List<Comm> findByCategory(CommCategory category);
+
+    @Query("SELECT c FROM Comm c LEFT JOIN FETCH c.replies r WHERE c.category = :category AND c.id <> :id")
+    List<Comm> findByCategoryWithRepliesAndExcludeId(@Param("category") CommCategory category, @Param("id") Integer id);
+
 
     // 메인 커뮤니티 리스트
     @Query("""
@@ -47,7 +52,6 @@ public interface CommRepository extends JpaRepository<Comm, Integer> {
                 JOIN c.replies r
             """)
     List<CommResponse.CommAndReplyDTO> findAllCommsWithReply();
-
 
 
 }

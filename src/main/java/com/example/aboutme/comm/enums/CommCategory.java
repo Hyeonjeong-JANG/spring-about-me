@@ -15,6 +15,16 @@ public enum CommCategory {
         this.korean = korean;
     }
 
+    // 문자열을 enum으로 변환하는 정적 메서드
+    public static CommCategory fromKorean(String korean) {
+        for (CommCategory category : values()) {
+            if (category.korean.equals(korean)) {
+                return category;
+            }
+        }
+        throw new IllegalArgumentException("Unknown category: " + korean);
+    }
+
     public String getKorean() {
         return korean;
     }

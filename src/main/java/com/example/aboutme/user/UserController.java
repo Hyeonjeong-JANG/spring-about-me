@@ -7,8 +7,6 @@ import com.example.aboutme.user.UserResponseDTO.ExpertMainDTO.ExpertMainDTORecor
 import com.example.aboutme.user.UserResponseDTO.expertFindDTO.FindWrapperRecord;
 import com.example.aboutme.user.enums.OauthProvider;
 import com.example.aboutme.user.enums.UserRole;
-//import com.example.aboutme.user.oauth.KakaoOAuthService;
-//import com.example.aboutme.user.oauth.NaverOAuthService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +14,6 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -29,7 +26,7 @@ public class UserController {
     private RedisTemplate<String, Object> redisTemp;
 
     @PostMapping("/login")
-    public String login(UserRequest.LoginDTO reqDTO, Model model, RedirectAttributes redirectAttributes) {
+    public String login(UserRequest.LoginDTO reqDTO) {
         SessionUser sessionUser = userService.loginByName(reqDTO);
         if (sessionUser == null) {
             throw new RuntimeException("아이디 혹은 패스워드가 틀렸습니다.");
@@ -180,7 +177,7 @@ public class UserController {
     // 👻👻👻공통👻👻👻
     // 클라이언트 메인페이지
     @GetMapping("/")
-    public String index( Model model) {
+    public String index(Model model) {
         ClientMainDTORecord clientMain = userService.getClientMain();
         model.addAttribute("clientMain", clientMain);
         return "client/main";

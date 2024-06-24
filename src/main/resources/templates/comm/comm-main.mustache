@@ -56,10 +56,9 @@
                     <!--필터 끝-->
                     <!--컨텐츠 시작-->
                     <div class="c-card">
-
                         {{#commsWithReplyList}}
                             <div class="c-card-body">
-                                <a href="/comm-detail/{{id}}">
+                                <a href="/comm-detail/{{id}}?category='{{category}}'">
                                     <h4 class="card-title mb-10">{{title}}</h4>
                                     <div class="community-cartegory">
                                         <div class="category main-color">{{category}}</div>
@@ -70,6 +69,8 @@
                                     </div>
                                     <p class="card-text mb-20">{{content}}</p>
                                 </a>
+
+
                                 <div class="link-wrapper">
                                     <a href="#" class="card-link like">❤<em class="count">1</em></a>
                                     <a href="#" class="card-link reply">💌<em class="count">2</em></a>
@@ -88,10 +89,8 @@
                                 {{/userRole}}
                             </div>
                         {{/commsWithReplyList}}
-
                     </div>
                     <!--컨텐츠 끝-->
-
                     <!--페이지네이션 시작-->
                     <div class="comm-pagination">
                         <nav aria-label="...">
@@ -117,7 +116,6 @@
     </div>
 </section>
 <!--컨텐츠 끝-->
-</div>
 <!--커뮤니티 끝-->
 {{> layout/footer}}
 
