@@ -47,8 +47,11 @@ spring:
     open-in-view: false
 
 ---
+
 spring:
-  profiles: https
+  config:
+    activate:
+      on-profile: https
 server:
   port: 8443
   ssl:
