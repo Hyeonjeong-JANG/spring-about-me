@@ -1,0 +1,10 @@
+version: "2"
+authtoken: 2iH9h5z6hoD8ua18tJlM3N7dXUf_BfFjkrZ7AauFQvagprMq
+
+tunnels:
+  web:
+    proto: http
+    addr: 8080
+  secure-web:
+    proto: http
+    addr: 8443

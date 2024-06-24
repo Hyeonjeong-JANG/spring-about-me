@@ -8,7 +8,7 @@ let localStream;
 let pc;
 
 // ngrok에서 준 주소로 WebSocket을 설정합니다.
-const signalingServer = new WebSocket('ws://0df1-112-218-52-157.ngrok-free.app/signal');
+const signalingServer = new WebSocket('ws://6332-112-160-228-144.ngrok-free.app/signal');
 
 const pcConfig = {
     iceServers: [
