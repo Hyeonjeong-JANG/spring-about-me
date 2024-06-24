@@ -1,4 +1,4 @@
-package com.example.aboutme.counsel;
+package com.example.aboutme.counsel.Video;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.socket.TextMessage;

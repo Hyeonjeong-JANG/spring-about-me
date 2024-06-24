@@ -6,22 +6,31 @@ const hangupButton = document.getElementById('hangupButton');
 
 let localStream;
 let pc;
-const signalingServer = new WebSocket('ws://192.168.112.187:8080/signal'); // 시그널링 서버의 로컬 IP 주소
+
+// 서버가 실행 중인 컴퓨터의 IP 주소로 WebSocket을 설정합니다.
+const signalingServer = new WebSocket('ws://192.168.9.101:8080/signal');
 
 const pcConfig = {
     iceServers: [
-        {
-            urls: 'stun:stun.l.google.com:19302' // Google의 공개 STUN 서버 사용
-        }
+        { urls: 'stun:stun.l.google.com:19302' } // 구글의 공개 STUN 서버
     ]
 };
 
 // 미디어 스트림 가져오기
 startButton.onclick = async () => {
-    localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
-    localVideo.srcObject = localStream;
-    callButton.disabled = false;
-    startButton.disabled = true;
+    try {
+        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+            throw new Error('getUserMedia is not supported in this browser.');
+        }
+        const constraints = { video: true, audio: true };
+        localStream = await navigator.mediaDevices.getUserMedia(constraints);
+        localVideo.srcObject = localStream;
+        callButton.disabled = false;
+        startButton.disabled = true;
+    } catch (error) {
+        console.error('Error accessing media devices.', error);
+        alert('Error accessing media devices: ' + error.message);
+    }
 };
 
 // WebRTC 연결 설정
@@ -54,6 +63,20 @@ signalingServer.onmessage = async message => {
     const data = JSON.parse(message.data);
 
     if (data.offer) {
+        if (!pc) {
+            pc = new RTCPeerConnection(pcConfig);
+            localStream.getTracks().forEach(track => pc.addTrack(track, localStream));
+
+            pc.onicecandidate = event => {
+                if (event.candidate) {
+                    signalingServer.send(JSON.stringify({ candidate: event.candidate }));
+                }
+            };
+
+            pc.ontrack = event => {
+                remoteVideo.srcObject = event.streams[0];
+            };
+        }
         await pc.setRemoteDescription(new RTCSessionDescription(data.offer));
         const answer = await pc.createAnswer();
         await pc.setLocalDescription(answer);

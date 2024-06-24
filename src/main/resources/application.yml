@@ -1,12 +1,15 @@
 server:
-  servlet:
-    encoding:
-      charset: utf-8
-      force: true
-    session:
-      tracking-modes: COOKIE
-      timeout: 30m
-  port: 8080
+  port: 8443
+  ssl:
+    key-store: classpath:keystore.p12
+    key-store-password: 123456
+    key-store-type: PKCS12
+    key-alias: tomcat
+
+  additionalPorts:
+    http:
+      port: 8082
+      ssl: false
 
 spring:
   data:
@@ -32,7 +35,6 @@ spring:
       mode: always
       data-locations:
         - classpath:db/data.sql
-      schema-locations:
   jpa:
     hibernate:
       ddl-auto: create
@@ -43,6 +45,3 @@ spring:
         default_batch_fetch_size: 10
     defer-datasource-initialization: true
     open-in-view: false
-
-
-
