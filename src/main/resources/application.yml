@@ -1,4 +1,11 @@
 server:
+  port: 8443
+  ssl:
+    key-store: classpath:keystore.p12
+    key-store-password: 123456
+    key-store-type: PKCS12
+    key-alias: tomcat
+
   servlet:
     encoding:
       charset: utf-8
@@ -6,11 +13,6 @@ server:
     session:
       tracking-modes: COOKIE
       timeout: 30m
-  port: 8080
-
-  additionalPorts:
-    https: 8443
-
 spring:
   data:
     redis:
@@ -45,18 +47,3 @@ spring:
         default_batch_fetch_size: 10
     defer-datasource-initialization: true
     open-in-view: false
-
----
-
-spring:
-  config:
-    activate:
-      on-profile: https
-server:
-  port: 8443
-  ssl:
-    enabled: true
-    key-store: classpath:keystore.p12
-    key-store-password: 123456
-    key-store-type: PKCS12
-    key-alias: tomcat
