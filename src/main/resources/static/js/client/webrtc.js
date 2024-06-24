@@ -7,12 +7,12 @@ const hangupButton = document.getElementById('hangupButton');
 let localStream;
 let pc;
 
-// 서버가 실행 중인 컴퓨터의 IP 주소로 WebSocket을 설정합니다.
-const signalingServer = new WebSocket('ws://192.168.9.101:8080/signal');
+// ngrok에서 준 주소로 WebSocket을 설정합니다.
+const signalingServer = new WebSocket('ws://0df1-112-218-52-157.ngrok-free.app/signal');
 
 const pcConfig = {
     iceServers: [
-        { urls: 'stun:stun.l.google.com:19302' } // 구글의 공개 STUN 서버
+        {urls: 'stun:stun.l.google.com:19302'} // 구글의 공개 STUN 서버
     ]
 };
 
@@ -22,7 +22,7 @@ startButton.onclick = async () => {
         if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
             throw new Error('getUserMedia is not supported in this browser.');
         }
-        const constraints = { video: true, audio: true };
+        const constraints = {video: true, audio: true};
         localStream = await navigator.mediaDevices.getUserMedia(constraints);
         localVideo.srcObject = localStream;
         callButton.disabled = false;
@@ -41,7 +41,7 @@ callButton.onclick = () => {
 
     pc.onicecandidate = event => {
         if (event.candidate) {
-            signalingServer.send(JSON.stringify({ candidate: event.candidate }));
+            signalingServer.send(JSON.stringify({candidate: event.candidate}));
         }
     };
 
@@ -51,7 +51,7 @@ callButton.onclick = () => {
 
     pc.createOffer().then(offer => {
         pc.setLocalDescription(offer);
-        signalingServer.send(JSON.stringify({ offer: offer }));
+        signalingServer.send(JSON.stringify({offer: offer}));
     });
 
     hangupButton.disabled = false;
@@ -69,7 +69,7 @@ signalingServer.onmessage = async message => {
 
             pc.onicecandidate = event => {
                 if (event.candidate) {
-                    signalingServer.send(JSON.stringify({ candidate: event.candidate }));
+                    signalingServer.send(JSON.stringify({candidate: event.candidate}));
                 }
             };
 
@@ -80,7 +80,7 @@ signalingServer.onmessage = async message => {
         await pc.setRemoteDescription(new RTCSessionDescription(data.offer));
         const answer = await pc.createAnswer();
         await pc.setLocalDescription(answer);
-        signalingServer.send(JSON.stringify({ answer: answer }));
+        signalingServer.send(JSON.stringify({answer: answer}));
     } else if (data.answer) {
         await pc.setRemoteDescription(new RTCSessionDescription(data.answer));
     } else if (data.candidate) {

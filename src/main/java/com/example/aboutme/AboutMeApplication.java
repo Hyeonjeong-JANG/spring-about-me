@@ -31,7 +31,7 @@ public class AboutMeApplication {
     private Connector createStandardConnector() {
         Connector connector = new Connector(Http11NioProtocol.class.getName());
         connector.setScheme("http");
-        connector.setPort(8082);
+        connector.setPort(8080);
         connector.setSecure(false);
         return connector;
     }
