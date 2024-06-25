@@ -1,8 +1,14 @@
 package com.example.aboutme.comm;
 
+import com.example.aboutme.user.User;
+import com.example.aboutme.user.enums.UserRole;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -19,8 +25,18 @@ public class CommController {
     }
 
     @GetMapping("/comm-detail/{id}")
+    public String detail(@PathVariable("id") Integer id,
+                         Model model) throws JsonProcessingException {
+
     public String detail(@PathVariable Integer id, HttpServletRequest request) {
         CommResponse.CommDetailDTO comm = commService.getCommDetail(id);
+        String json = new ObjectMapper().writeValueAsString(comm);
+
+        System.out.println("json = " + json);
+
+        // userRole이 EXPERT인 경우에는 true, 그 외에는 false
+        model.addAttribute("comm", comm);
+
         request.setAttribute("comm", comm);
         System.out.println("comm = " + comm);
         return "comm/comm-detail";
@@ -28,8 +44,16 @@ public class CommController {
 
     @GetMapping("/comm")
     public String community(HttpServletRequest request) {
+
+
         List<CommResponse.CommAndReplyDTO> commsWithReplyList = commService.findAllCommsWithReply();
-        request.setAttribute("commsWithReplyList", commsWithReplyList);
+
+
+        // 필터링 예시: 고유한 Comm에 대해 하나의 DTO만 추가하기
+        CommResponse.UniqueCommAndReplyDTOFilter filter = new CommResponse.UniqueCommAndReplyDTOFilter();
+        List<CommResponse.CommAndReplyDTO> filteredList = filter.filterUnique(commsWithReplyList);
+
+        request.setAttribute("filteredList", filteredList);
 
         return "comm/comm-main";
     }
