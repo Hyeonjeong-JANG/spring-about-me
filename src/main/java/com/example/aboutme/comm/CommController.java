@@ -25,18 +25,8 @@ public class CommController {
     }
 
     @GetMapping("/comm-detail/{id}")
-    public String detail(@PathVariable("id") Integer id,
-                         Model model) throws JsonProcessingException {
-
     public String detail(@PathVariable Integer id, HttpServletRequest request) {
         CommResponse.CommDetailDTO comm = commService.getCommDetail(id);
-        String json = new ObjectMapper().writeValueAsString(comm);
-
-        System.out.println("json = " + json);
-
-        // userRole이 EXPERT인 경우에는 true, 그 외에는 false
-        model.addAttribute("comm", comm);
-
         request.setAttribute("comm", comm);
         System.out.println("comm = " + comm);
         return "comm/comm-detail";
