@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SSE Test</title>
+</head>
+<body>
+<h1>Expert Alarm</h1>
+<div id="expertAlarm"></div>
+<h1>Client Alarm</h1>
+<div id="clientAlarm"></div>
+<script>
+    // Expert SSE connection
+    const expertId = 1; // Replace with actual expert ID
+    const expertEventSource = new EventSource(`http://localhost:8080/sse/expert/${expertId}`);
+
+    expertEventSource.onmessage = function (event) {
+        const expertDiv = document.getElementById('expertAlarm');
+        const newElement = document.createElement('div');
+        newElement.innerText = 'Expert Alarm: ' + event.data;
+        expertDiv.appendChild(newElement);
+    };
+
+    // Client SSE connection
+    const clientId = 1; // Replace with actual client ID
+    const clientEventSource = new EventSource(`http://localhost:8080/sse/client/${clientId}`);
+
+    clientEventSource.onmessage = function (event) {
+        const clientDiv = document.getElementById('clientAlarm');
+        const newElement = document.createElement('div');
+        newElement.innerText = 'Client Alarm: ' + event.data;
+        clientDiv.appendChild(newElement);
+    };
+</script>
+</body>
+</html>

@@ -1,8 +1,10 @@
 package com.example.aboutme.reservation;
 
 import com.example.aboutme._core.error.exception.Exception400;
+import com.example.aboutme._core.error.exception.Exception404;
 import com.example.aboutme._core.utils.DayOfWeekConverter;
 import com.example.aboutme._core.utils.Formatter;
+import com.example.aboutme.alarm.AlarmService;
 import com.example.aboutme.payment.PaymentResponseRecord.PaymentDetailsDTO;
 import com.example.aboutme.reservation.enums.ReservationStatus;
 import com.example.aboutme.reservation.reservationRequest.ReservationTempRepDTO;
@@ -31,7 +33,9 @@ public class ReservationService {
     private final UserRepository userRepository;
     private final VoucherRepository voucherRepository;
     private final ScheduleRepository scheduleRepository;
+    private final AlarmService alarmService;
     private final Formatter formatter;
+
 
 
     public PaymentDetailsDTO getTempReservation(Integer reservationId) {
@@ -143,6 +147,21 @@ public class ReservationService {
 
     }
 
+    // 알림 보내기
+    @Transactional
+    public void changeReservationStatus(Integer reservationId, ReservationStatus newStatus) {
+        Reservation reservation = reservationRepository.findById(reservationId)
+                .orElseThrow(() -> new Exception404("예약 내역이 없습니다."));
+
+        reservation.setStatus(newStatus);
+        reservationRepository.save(reservation);
+
+        if (newStatus == ReservationStatus.SCHEDULED) {
+            alarmService.alarmExpert(reservation);
+        } else if (newStatus == ReservationStatus.COMPLETED) {
+            alarmService.alarmClient(reservation);
+        }
+    }
 
 }
 
