@@ -8,7 +8,7 @@ let localStream;
 let pc;
 
 // 서버가 실행 중인 컴퓨터의 IP 주소로 WebSocket을 설정합니다.
-const signalingServer = new WebSocket('ws://192.168.9.101:8080/signal');
+const signalingServer = new WebSocket('ws://192.168.0.133:8080/signal');
 
 const pcConfig = {
     iceServers: [
