@@ -134,6 +134,7 @@ public class UserController {
         model.addAttribute("sessionUser", redisUtil.getSessionUser());
         ClientMainDTORecord clientMain = userService.getClientMain();
         model.addAttribute("clientMain", clientMain);
+
         return "client/main";
     }
 

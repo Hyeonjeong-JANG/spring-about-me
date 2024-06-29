@@ -17,7 +17,7 @@ public class CounselRestController {
     private final CounselRepository counselRepository;
 
     @PostMapping("/client/reservations/temp/{reservationId}")
-    public ResponseEntity<?> deleteTempReservation(@PathVariable Integer reservationId) {
+    public ResponseEntity<?> deleteTempReservation(@PathVariable("reservationId") Integer reservationId) {
         log.info("Delete temporary reservation      " + reservationId);
         Counsel reservation = counselRepository.findById(reservationId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Reservation not found"));

@@ -55,7 +55,6 @@ public class CommController {
     public String detail(@PathVariable("id") Integer id, Model model) throws JsonProcessingException {
 
         CommResponse.CommDetailDTO comm = commService.getCommDetail(id);
-
 //        String json = new ObjectMapper().writeValueAsString(comm);
 //        log.info("디테일  {}", json);
 
