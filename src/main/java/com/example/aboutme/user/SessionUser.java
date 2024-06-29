@@ -6,7 +6,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @NoArgsConstructor
 @Data
 public class SessionUser {
@@ -44,7 +43,7 @@ public class SessionUser {
         this.id = user.getId();
         this.name = user.getName();
         this.email = user.getEmail();
-        this.profileImage = user.getProfileImage();
+        this.profileImage = user.getProfileImage() != null ? user.getProfileImage() : "/images/happy.webp"; // 기본 이미지 설정
         this.expertTitle = user.getExpertTitle();
         this.userRole = user.getUserRole();
         this.provider = user.getProvider();
@@ -55,8 +54,8 @@ public class SessionUser {
         this.id = user.getId();
         this.name = user.getName();
         this.email = user.getEmail();
+        this.profileImage = user.getProfileImage() != null ? user.getProfileImage() : "/images/happy.webp"; // 기본 이미지 설정
         this.expertTitle = user.getExpertTitle();
-        this.profileImage = user.getProfileImage();
         this.userRole = user.getUserRole();
         this.provider = user.getProvider();
     }

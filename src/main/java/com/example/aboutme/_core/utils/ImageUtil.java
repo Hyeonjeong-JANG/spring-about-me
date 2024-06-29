@@ -36,6 +36,8 @@ public class ImageUtil {
             return ".png";
         } else if (base64Image.startsWith("data:image/gif")) {
             return ".gif";
+        } else if (base64Image.startsWith("data:image/webp")) {
+            return ".webp";
         }
         return null; // 지원하지 않는 형식의 경우 null 반환
     }

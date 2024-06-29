@@ -59,11 +59,9 @@ public class User {
     private Gender gender;
 
     @OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    @JsonIgnore
     private PR pr;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    @JsonIgnore
     private List<Spec> specs;
 
     @Enumerated(EnumType.STRING)
@@ -74,6 +72,13 @@ public class User {
 
     @UpdateTimestamp
     private Timestamp updatedAt;
+
+    @PrePersist
+    public void prePersist() {
+        if (this.profileImage == null) {
+            this.profileImage = "/images/happy.webp"; // 기본 이미지 경로 설정
+        }
+    }
 
     @Builder
     public User(Integer id, UserRole userRole, String email, String password, String name, String phone, String expertTitle, ExpertLevel level, String profileImage, String birth, Gender gender, PR pr, List<Spec> specs, OauthProvider provider, Timestamp createdAt, Timestamp updatedAt) {
